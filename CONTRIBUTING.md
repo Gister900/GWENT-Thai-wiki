@@ -8,3 +8,24 @@
 - **Logic lives in `src/lib/` as pure functions** with unit tests next to it (`tests/unit/`). The e2e (`tests/e2e/`) checks behaviour, selecting elements by id / `data-*`, and fails on any console error.
 - **Thai card text is AI-translated.** Card names, tags and keywords stay in English. Card pairings are computed from card text in `pipeline/pairs.py`, not guessed.
 - **Fan content rules (CD PROJEKT RED):** keep the exact sentence "This is an unofficial fan work and is not approved/endorsed by CD PROJEKT RED." visible (footer + About dialog in `src/features/shell/About.tsx`), no ads, nothing commercial, nothing that suggests CD PROJEKT RED endorses the site.
+
+## วิธี build / Build
+ต้องมี Node.js 22 ขึ้นไป
+
+```
+npm install
+npm run build:web        # dist/ เว็บปกติ · ตั้ง base: BASE=/GWENT-Thai-wiki/ npm run build:web
+npm run build:single     # dist-single/GWENT-Thai-wiki.html ไฟล์เดียว เปิดจาก file:// ได้ (รูปการ์ดดึงจากเน็ต)
+npm run dev              # dev server http://localhost:5190
+```
+
+| คำสั่ง | ทำอะไร |
+|---|---|
+| `npm test` | unit test ของ `src/lib` (vitest) |
+| `npm run e2e` | Playwright บนไฟล์ `dist-single/GWENT-Thai-wiki.html` (build ก่อน · ต้องมี chromium: `npx playwright install chromium`) |
+| `npm run e2e:web` | build เว็บด้วย `BASE=/GWENT-Thai-wiki/` แล้ว serve `dist/` ใต้ path นั้นเหมือน GitHub Pages · เช็กว่ารูปการ์ดมาจาก `art/` ของเว็บเอง ไม่มี 404 และไม่ดึงรูปจาก playgwent/gwent.one (ยกเว้น token ที่ไม่มีไฟล์ในเว็บ) |
+| `npm run data` | สร้าง `src/data/*.json` จาก `data/` ใหม่ (**ต้องมีไฟล์ข้อมูลดิบใน `data/raw/` ซึ่งไม่ได้รวมไว้ใน repo นี้** + Python 3 · ไฟล์ที่สร้างแล้ว commit ไว้ build ปกติไม่ต้องใช้) |
+| `npm run art` / `npm run art:refresh` | เช็ก/ดาวน์โหลดรูปการ์ดลง `.cache/art/` (**ต้องมีไฟล์ข้อมูลดิบใน `data/raw/` ซึ่งไม่ได้รวมไว้ใน repo นี้** + venv `.venv` ที่ติดตั้ง Pillow) |
+| `npm run art:web` | แปลงรูปใน `.cache/art/` (จาก `npm run art`) เป็น webp กว้าง 376px ขนาดเดียวใน `public/art/l/` (ต้องมี `.venv` ที่ติดตั้ง Pillow · รูปที่แปลงแล้ว commit ไว้ build ปกติไม่ต้องใช้) |
+
+เว็บบน GitHub Pages build ด้วย `.github/workflows/pages.yml` ทุกครั้งที่ push เข้า `main` ใช้เฉพาะข้อมูลและรูปที่ commit ไว้ ไม่ดึงอะไรจากเว็บการ์ด
