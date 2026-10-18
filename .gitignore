@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-single/
+test-results/
+playwright-report/
+.DS_Store
+__pycache__/
+.venv/
+.cache/
+screenshots/
+.env
+.env.*
+
+# raw API dumps (CD PROJEKT RED / gwent.one data): kept locally for the pipeline, never committed
+data/raw/

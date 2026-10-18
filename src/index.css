@@ -1,0 +1,6 @@
+/* Tailwind v4 theme + utilities (no preflight — app.css has its own small base).
+   Design tokens are app-level CSS variables in styles/tokens.css; app.css is the whole look. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./styles/tokens.css";
+@import "./styles/app.css";

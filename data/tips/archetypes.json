@@ -1,0 +1,507 @@
+{
+ "Monster": [
+  {
+   "name": "White Frost",
+   "name_th": "น้ำแข็งไวลด์ฮันต์",
+   "summary_th": "ใช้ Frost ลงแถวศัตรู แล้วลากเป้าหมายเข้าแถวนั้นด้วยการเคลื่อนที่ ยูนิต Wild Hunt ได้ประโยชน์จาก Frost ส่วน Dominance ให้รางวัลถ้าเรามียูนิตสูงสุด เป็นเดคเริ่มต้นที่แหล่งข้อมูลบอกว่าเล่นง่าย",
+   "keywords": [
+    "Frost",
+    "Dominance",
+    "Wild Hunt"
+   ],
+   "key_cards": [
+    132310,
+    202612,
+    202610,
+    202607,
+    202608,
+    203159,
+    202606
+   ],
+   "tips": [
+    "อย่าใช้ Frost หมดตั้งแต่รอบแรก ถ้าจะชนะรอบแรกให้กดดันเดคเอนจิน ไม่งั้นเก็บไว้ให้ Caranthir ปิดเกม",
+    "เก็บการ์ดเคลื่อนที่ไว้สักใบ เผื่อเอนจินศัตรูอยู่นอกแถวที่โดน Frost",
+    "ถ้าศัตรูมียูนิตน้อย อย่าลง Frost ใส่แถวว่าง",
+    "Frost ไม่ค่อยสเกลในรอบสั้น ระวังรอบที่ผ่านเร็ว"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Tatterwing / Deathwish Ruehin",
+   "name_th": "ปีกขาด / เดธวิช",
+   "summary_th": "เดคที่เห็นบ่อยบนแลดเดอร์ Tatterwing ใช้ Lara Dorren ส่วน Deathwish Ruehin ใช้ Ruehin, Giant Toad และ Brewess: Ritual เป็นแกน โดยรีวิวบอกว่ามีเงื่อนไขชนะที่ฟลอร์สูงกว่าเดค Deathwish รุ่นเก่า",
+   "keywords": [
+    "Deathwish",
+    "Tatterwing",
+    "Ruehin"
+   ],
+   "key_cards": [
+    203283,
+    202607,
+    201660,
+    203119,
+    200221,
+    202435,
+    202832
+   ],
+   "tips": [
+    "Lara Dorren เมื่อพลังต่ำทำให้ปล่อย Ard Gaeth ได้เหมือนได้โปรวิชั่นเพิ่ม",
+    "ใช้ Giant Toad กับ Brewess: Ritual เป็นแกน Deathwish ตามเดค Ruehin",
+    "คู่ Koshchey กับ Kikimore Queen เป็นคอมโบที่ถูกกล่าวถึงใช้กับ Lilit's Omen"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Fruits of Ysgith",
+   "name_th": "ผลไม้อีสกิธ",
+   "summary_th": "ไอเดียที่รีวิวแนะนำ ใช้ Lilit's Omen ตั้งภัยคุกคามใหญ่อย่าง Mammuna กับ Gernichora ในเทิร์นเดียว ทั้งเป็นแต้มและเป็นจังหวะ Engine Fruits ใช้ Alpha Werewolf กับ Ciri ธรรมดาเสริม",
+   "keywords": [
+    "Fruits",
+    "Lilit's Omen",
+    "Engine"
+   ],
+   "key_cards": [
+    203200,
+    202995,
+    200114,
+    202832,
+    202435
+   ],
+   "tips": [
+    "Lilit's Omen ใช้คอมโบกับ Koshchey + Kikimore Queen หรือ Deathwish สองใบเพื่อ Overwhelming Hunger",
+    "ผู้รีวิวเตือนว่า Kikimore Warrior ถูกและแรงเหมาะเฉพาะเดคที่มีวิธีตอบเอนจินดีๆ"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  }
+ ],
+ "Nilfgaard": [
+  {
+   "name": "Assimilate",
+   "name_th": "ก๊อปการ์ดศัตรู",
+   "summary_th": "สร้างและก๊อปการ์ดของฝั่งตรงข้าม ตัวเลือกจึงเปลี่ยนทุกแมตช์ เหมาะกับคนชอบด้นสด และสอนให้รู้จักการ์ดฝ่ายอื่น มีทั้งรุ่นเริ่มต้นกับ Enslave 6 ที่เก่งเรื่องตอบเอนจิน",
+   "keywords": [
+    "Assimilate",
+    "Enslave",
+    "Create"
+   ],
+   "key_cards": [
+    162315,
+    202248,
+    202239,
+    202658,
+    202242,
+    202449,
+    203192,
+    203038
+   ],
+   "tips": [
+    "เล่นเอนจิน Assimilate ราคาถูกเมื่อมีการ์ดตามหลังที่สร้างมาแล้วเท่านั้น อย่าเปิดสองเอนจินพร้อมกันก่อนศัตรูใช้การ์ดกำจัด",
+    "ชนะรอบแรกถ้าศัตรูมีเป้าหมายก๊อปดี ไม่งั้นเก็บเอนจินไว้รอบสาม",
+    "ถ้า Double Cross เสนอตัวเลือกแย่ทั้งสามใบ เลือกแต้มทันทีหรือคอนโทรล",
+    "เดคเริ่มต้นเก่าอาจเกินโปรวิชั่นหลังการปรับสมดุล ให้ตัดแต่รักษาแกน Assimilate"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  },
+  {
+   "name": "Midrange Slave Infantry / Ivar",
+   "name_th": "กลางเกม ทาสและอิวาร์",
+   "summary_th": "เดคที่แรงสุดช่วงพฤศจิกายน 2025 ตามรีวิว ใช้ Slave Infantry กับ Ivar Evil-Eye สลับพลังกับยูนิตศัตรู เสริมด้วย Sandor de Baccalà ซึ่งเป็นเอนจิน Deploy",
+   "keywords": [
+    "Midrange",
+    "Slave Infantry",
+    "Swap"
+   ],
+   "key_cards": [
+    201610,
+    202791,
+    203211,
+    203275,
+    202445,
+    202235
+   ],
+   "tips": [
+    "Ivar Evil-Eye สลับพลังกับยูนิตศัตรูได้เพดานเกิน 30 แต้ม ตามรีวิว",
+    "Slave Driver ตามด้วย Slave Infantry แบบฝูงอ่อนบนแลดเดอร์สูง",
+    "แหล่งข้อมูลระบุว่าเดคนี้ถูกปรับลดแล้ว ตรวจการ์ดล่าสุดก่อนใช้"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-december-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  },
+  {
+   "name": "Tactical Decision / Formation",
+   "name_th": "ทหารเกราะ",
+   "summary_th": "เดคทหารเกราะ ใช้ Tactical Decision หรือ Imperial Formation ร่วมกับ Affan Hillergrand ที่ถูกดึงออกจากเด็คตอนใช้ลีดเดอร์ครั้งสุดท้ายและเสริมพลังทหารเกราะ มีรุ่น Renfri Tactical Decision ที่นิยมสุดใน NG",
+   "keywords": [
+    "Tactical Decision",
+    "Formation",
+    "Armor"
+   ],
+   "key_cards": [
+    202445,
+    202235,
+    162309,
+    203092
+   ],
+   "tips": [
+    "Affan Hillergrand เข้าได้ทั้ง Tactical Decision กับ Formation แต่ไม่จำเป็นต้องสร้างทั้งเดครอบเขา",
+    "Vivienne de Tabris ใช้ได้ดีกับ Deploy ของ Renfri หรือ Triss",
+    "Jan Calveit เป็นแกนของ Shupe ที่ตอบเอนจินได้"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/",
+    "https://leriohub.com/gwent-community-patch-july-2025-review/"
+   ]
+  }
+ ],
+ "Northern Realms": [
+  {
+   "name": "Shieldwall Engines",
+   "name_th": "เอนจินโล่",
+   "summary_th": "Shieldwall ปกป้องยูนิตสำคัญและเสริมการ์ดที่สนเรื่องบูสต์ โล่ หรือการอยู่รอดจนใช้ Order ได้ ต้องการรอบที่ยาว",
+   "keywords": [
+    "Shieldwall",
+    "Boost",
+    "Order",
+    "Engine"
+   ],
+   "key_cards": [
+    200299,
+    200171,
+    201630,
+    202506,
+    202650,
+    202152,
+    202646,
+    122103
+   ],
+   "tips": [
+    "เดคแพ้เมื่อลงเอนจินห้าตัวแต่ไม่ปกป้องสักตัว เปิดด้วยการ์ดที่เสียได้แล้วค่อยป้องกันตัวสำคัญ",
+    "แย่งรอบแรกด้วยชุดเอนจินเล็ก อย่าทุ่ม Anna Strenger กับ Drummer กับ Immortals ลงรอบที่จะยอมแพ้",
+    "ถ้าเอนจินตายหมด ให้ย่นรอบถัดไป"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  },
+  {
+   "name": "Temple Zeal / Melitele",
+   "name_th": "วิหารเมลิเทเล",
+   "summary_th": "Temple of Melitele: Congregation เป็นการ์ดเพดานสูงและความแปรปรวนสูง เป็นเดค NR ที่ประสบความสำเร็จสุดบนแลดเดอร์ตามรีวิวกลางปี 2025 สร้างตำนาน NR สามใบ และดึงยูนิตกลับมือพร้อมบูสต์ประมาณ 9",
+   "keywords": [
+    "Zeal",
+    "Temple",
+    "Carryover",
+    "Melitele"
+   ],
+   "key_cards": [
+    203198,
+    201618,
+    202642,
+    203258
+   ],
+   "tips": [
+    "เล่น Temple เพื่อคาร์รีโอเวอร์ ไม่ใช่เพื่อแต้มทันที",
+    "Viraxas: Prince เปิดใช้ Order ของ Prince Anseis หรือ King Demavend ซ้ำได้ และเข้ากับ Seltkirk"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Spellweavers / Revenants",
+   "name_th": "นักเวทและวิญญาณ",
+   "summary_th": "Spellweavers ใช้ Cintrian Spellweaver เป็นเอนจินสเกล ก๊อปด้วย Chapter of Wizards หรือชุบด้วย Shani ส่วน Revenants ใช้ Kaedweni Revenant กับคาร์รีโอเวอร์ของ Ronvid the Incessant",
+   "keywords": [
+    "Spellweaver",
+    "Revenant",
+    "Carryover",
+    "Resurrect"
+   ],
+   "key_cards": [
+    202256,
+    203049,
+    122106,
+    201624,
+    200529
+   ],
+   "tips": [
+    "Spellweaver ก๊อปได้ด้วย Chapter of Wizards และสร้างจาก Runeword ได้ ใช้ได้ทั้งแบบมีหรือไม่มี Student",
+    "Revenant จับคู่กับ Ronvid และการ์ดดาเมจ"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  }
+ ],
+ "Scoiatael": [
+  {
+   "name": "Nature's Gift Symbiosis",
+   "name_th": "ของขวัญธรรมชาติ",
+   "summary_th": "การ์ดสเปเชียล Nature แต่ละใบสร้าง Wandering Treant ได้ Hamadryad กับ Dryad ทำให้ Vitality และ Nature ซ้ำกลายเป็นเอนจินที่มองเห็นได้ เป็นเดคเริ่มต้นที่เล่นง่าย",
+   "keywords": [
+    "Nature",
+    "Symbiosis",
+    "Vitality",
+    "Treant"
+   ],
+   "key_cards": [
+    202539,
+    202269,
+    202677,
+    202678,
+    202675,
+    202263,
+    202673,
+    203149
+   ],
+   "tips": [
+    "นับพื้นที่บนบอร์ดเพราะ Treant เต็มแถวเร็ว ถ้าแน่นให้พาสหรือลงสเปเชียลก่อนเอนจิน",
+    "อย่ายิงการ์ด Nature แค่ได้ Treant ตัวเดียว และให้ Vitality กับยูนิตที่น่าจะรอด",
+    "Aucwenn เป็นเอนจินชนะรอบในแบบ Nature's Gift ที่ไม่ใช่ Devotion"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  },
+  {
+   "name": "Mahakam Dwarves / Elves",
+   "name_th": "คนแคระ / เอลฟ์",
+   "summary_th": "เดค ST ที่รีวิวบอกว่า Mahakam Pass เข้ากับเกือบทุกแบบ ได้แก่ Dwarves, Armor Dwarves และ Elves โดยรุ่น Elves ใช้ The Heist ข้อมูลส่วนนี้บางกว่าสไตล์อื่น",
+   "keywords": [
+    "Dwarves",
+    "Elves",
+    "Mahakam Pass",
+    "Heist"
+   ],
+   "key_cards": [
+    203279,
+    203219,
+    202801
+   ],
+   "tips": [
+    "Mahakam Pass ใส่ได้เกือบทุกเดค ST ตามรีวิว",
+    "Gezras of Leyda ถูกมองว่าเป็นการ์ดโกงในเดค Dwarves หรือ Gift"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Harmony / Witchers",
+   "name_th": "ฮาร์โมนี / วิทเชอร์",
+   "summary_th": "รีวิวเอ่ยถึง Harmony Quarixis, GN Harmony ที่ใช้ Milaen เป็นตัวกำจัด และ ST Witchers ที่ใช้ Gezras ข้อมูลบาง ไม่มีรายละเอียดวิธีเล่นลึก",
+   "keywords": [
+    "Harmony",
+    "Witchers",
+    "Removal"
+   ],
+   "key_cards": [
+    200030,
+    203090,
+    202801
+   ],
+   "tips": [
+    "Milaen ใช้เป็นการ์ดกำจัดในเดค GN Harmony",
+    "Saskia: Commander ถูกเสนอสำหรับ Movement ที่ไม่ใช่ Nekker"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  }
+ ],
+ "Skellige": [
+  {
+   "name": "Patricidal Fury Warriors",
+   "name_th": "ฟิวรีนักรบ",
+   "summary_th": "ลีดเดอร์สร้างยูนิตที่บาดเจ็บ เปิด Bloodthirst และให้ Sove มีเป้าหมายแน่ๆ Longship กับ Warrior ให้รางวัลกับดาเมจที่ตรงเบรกพอยต์ ส่วน Seagull การันตีคาร์รีโอเวอร์",
+   "keywords": [
+    "Patricidal Fury",
+    "Bloodthirst",
+    "Warrior",
+    "Damage"
+   ],
+   "key_cards": [
+    152314,
+    203148,
+    200040,
+    200028,
+    202619,
+    203145,
+    202615,
+    203070
+   ],
+   "tips": [
+    "เดคต้องการคุมรอบ เพราะ Sove และการกำจัดเฉพาะเป้าลงโทษรอบสั้น",
+    "ใช้ชาร์จลีดเดอร์เฉพาะ Sove, Bloodthirst หรือสวิงเทมโปใหญ่",
+    "ถ้าศัตรูปฏิเสธ Bloodthirst ให้เลิกเก็บการ์ดตอบแบบมีเงื่อนไข เอาแต้มไปเลย"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  },
+  {
+   "name": "Pirates / Onslaught",
+   "name_th": "โจรสลัด",
+   "summary_th": "เดคโจรสลัดและ Onslaught ใช้ Deranged Corsair ทั้ง PF Abordage และ Onslaught Pirates รุ่น Armor Exploit ใช้ Heymaey Protector สร้างเกราะวนไม่จบ แต่ Tainted Ale ขึ้นราคาลดความน่าเล่น",
+   "keywords": [
+    "Pirates",
+    "Onslaught",
+    "Armor",
+    "Corsair"
+   ],
+   "key_cards": [
+    203069,
+    200149,
+    200530,
+    203113
+   ],
+   "tips": [
+    "Deranged Corsair ช่วยทั้ง Abordage และ Onslaught Pirates ตามรีวิวตุลาคม",
+    "Heymaey Protector สร้างเกราะวนไม่จบ"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Battle Trance Selfwound / Raid",
+   "name_th": "ทำร้ายตัวเอง / บุกจู่โจม",
+   "summary_th": "Selfwound ใช้ Svalblod กับ Portal เป็นแบบ binary มากถ้าเดคไม่มีคำตอบให้ Sigvald หรือ Knut จะลำบาก ส่วน All-in Raid ใช้ Highland Warlord เสริมดาเมจ Raid กับ Blood Eagle และ Primal Savagery",
+   "keywords": [
+    "Battle Trance",
+    "Selfwound",
+    "Raid",
+    "Bloodthirst"
+   ],
+   "key_cards": [
+    203193,
+    202282,
+    203113,
+    202619,
+    202287,
+    200103
+   ],
+   "tips": [
+    "Selfwound ผันผวนสูง ถ้าไม่มีวิธีตอบ Sigvald หรือ Knut จะเดือดร้อน",
+    "Blood Eagle ติวเตอร์ Bloodthirst Warrior และมีคอมโบกำจัด"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-december-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-july-2025-review/"
+   ]
+  }
+ ],
+ "Syndicate": [
+  {
+   "name": "Off the Books Sesames",
+   "name_th": "ออฟเดอะบุ๊กส์",
+   "summary_th": "Shady Vendor สร้างสำเนา Open, Sesame! หรือ Pulling the Strings เพิ่มคาร์รีโอเวอร์เหรียญแดง เป็นสไตล์ที่รีวิวเห็นบ่อยตลอดปี 2025",
+   "keywords": [
+    "Off the Books",
+    "Coins",
+    "Carryover",
+    "Sesame"
+   ],
+   "key_cards": [
+    203232,
+    203121,
+    203165,
+    203233
+   ],
+   "tips": [
+    "Oxenfurt Guard เล่นเป็นประมาณ 13 แต้มสำหรับ 4 โปรวิชั่นในรุ่นกลางปี",
+    "Shady Vendor เพิ่มสำเนา Open, Sesame! เสริมคาร์รีโอเวอร์เหรียญแดง"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Congregate Firesworn",
+   "name_th": "ฝูงไฟแห่งศรัทธา",
+   "summary_th": "สร้างโทเคน ผลิตเหรียญ ใช้เหรียญ แล้วแปลงฝูงเป็นแต้ม แหล่งข้อมูลบอกว่ายากสุดสำหรับมือใหม่ Firesworn Scribe ได้เหรียญเมื่อมียูนิตเกิด คอมโบ Printing Press คือ Grand Inquisitor Helveed + Lonely Champion",
+   "keywords": [
+    "Congregate",
+    "Firesworn",
+    "Coins",
+    "Token"
+   ],
+   "key_cards": [
+    202374,
+    202366,
+    202376,
+    202638,
+    202350,
+    202639,
+    202300,
+    202633
+   ],
+   "tips": [
+    "จำหลัก: ได้เหรียญ ใช้เหรียญ แปลงเป็นแต้ม",
+    "ถ้าแบงก์เหรียญเต็มให้ใช้ก่อนผลิตเพิ่ม และถ้าบอร์ดเต็มให้หยุดสร้างโทเคน",
+    "เปิดด้วย Scribe เฉพาะเมื่อมีตัวใช้เหรียญปลอดภัยในมือ"
+   ],
+   "sources": [
+    "https://consolepulse.com/multiplatform/the-witcher/guides/gwent-best-starter-decks-every-faction-2026",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/",
+    "https://leriohub.com/gwent-community-patch-december-2025-review/"
+   ]
+  },
+  {
+   "name": "Lined Pockets Crimes",
+   "name_th": "กระเป๋าซับใน",
+   "summary_th": "เดค Lined Pockets สาย Crimes รุ่นที่รีวิวชอบใช้ Cleaver กับ Halfling Safecracker โดย Novigradian Justice ติวเตอร์ Safecracker และ Cleaver's Muscle ที่ 7 พลังทำให้ใช้เหรียญคุ้มขึ้นมาก",
+   "keywords": [
+    "Lined Pockets",
+    "Crimes",
+    "Coins"
+   ],
+   "key_cards": [
+    202890,
+    202375,
+    202384,
+    202309
+   ],
+   "tips": [
+    "Novigradian Justice ติวเตอร์ Safecracker",
+    "Ewald Borsodi ใช้เป็นตัวใช้เหรียญรอบแรกได้"
+   ],
+   "sources": [
+    "https://leriohub.com/gwent-community-patch-july-2025-review/",
+    "https://leriohub.com/gwent-community-patch-october-2025-review/"
+   ]
+  }
+ ]
+}

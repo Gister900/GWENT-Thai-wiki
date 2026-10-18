@@ -1,0 +1,338 @@
+{
+ "Deploy": {
+  "def_en": "Trigger this ability when played.",
+  "cards": 575
+ },
+ "Order": {
+  "def_en": "An ability triggered manually by the player. Cards with Order cannot be used for 1 turn after being placed on the battlefield.",
+  "cards": 330
+ },
+ "Spawn": {
+  "def_en": "Add a card to the game.",
+  "cards": 242
+ },
+ "Melee": {
+  "def_en": "This ability can only be used while on the melee row.",
+  "cards": 140
+ },
+ "Ranged": {
+  "def_en": "This ability can only be used while on the ranged row.",
+  "cards": 126
+ },
+ "Zeal": {
+  "def_en": "An Order ability can be used on the same turn the card is placed on the battlefield.",
+  "cards": 98
+ },
+ "Cooldown": {
+  "def_en": "The number of turns before an Order or Fee ability can be reused.",
+  "cards": 75
+ },
+ "Summon": {
+  "def_en": "Move automatically to the battlefield (not considered played).",
+  "cards": 75
+ },
+ "Armor": {
+  "def_en": "Protects the unit from damage. This value doesn't count towards your score and/or the unit's power.",
+  "cards": 65
+ },
+ "Charge": {
+  "def_en": "The number of times an Order ability can be used. Only cards with Charge: X can gain additional Charges.",
+  "cards": 60
+ },
+ "Doomed": {
+  "def_en": "Status that removes the card from the game after it leaves the battlefield.",
+  "cards": 59
+ },
+ "Coin": {
+  "def_en": "The Novigradian underworld's currency of choice for paying Fees and Tributes. You may possess a maximum of 9 Coins. Your Coin-count is reduced by half (rounded down) when carried over into the next round.",
+  "cards": 51
+ },
+ "Profit": {
+  "def_en": "Gain a specified number of Coins when this card is played. You may possess a maximum of 9 Coins.",
+  "cards": 50
+ },
+ "Bleeding": {
+  "def_en": "Status that damages the unit by 1 at the end of its turn. Note: Bleeding turns can accumulate, 1 turn of Bleeding cancels out 1 turn of Vitality. Bleeding ignores armor.",
+  "cards": 48
+ },
+ "Fee": {
+  "def_en": "Trigger this ability by spending the specified number of Coins.",
+  "cards": 43
+ },
+ "Deathwish": {
+  "def_en": "Trigger this ability when destroyed and moved from the battlefield to the graveyard. Note: Banished units are not sent to the graveyard.",
+  "cards": 40
+ },
+ "Deathblow": {
+  "def_en": "Trigger this ability if this card destroys a unit.",
+  "cards": 40
+ },
+ "Create": {
+  "def_en": "Spawn one of three randomly selected cards from the specified source.",
+  "cards": 40
+ },
+ "Resilience": {
+  "def_en": "Status that allows a unit to remain on the battlefield at the end of the round, then disappears.\\nNote: Boost and Armor are not carried over to the next round.",
+  "cards": 39
+ },
+ "Lock": {
+  "def_en": "Status that disables a unit's abilities.",
+  "cards": 33
+ },
+ "Vitality": {
+  "def_en": "Status that boosts this unit by 1 on its turn end. Note: Vitality turns can accumulate; 1 turn of Vitality cancels out 1 turn of Bleeding.",
+  "cards": 33
+ },
+ "Banish": {
+  "def_en": "Remove from the game. Note: Does not count as being destroyed.",
+  "cards": 32
+ },
+ "Infused": {
+  "def_en": "Status that adds effects or categories to a card. Removing the status also removes all added effects and categories. Lock disables Infused abilities.",
+  "cards": 32
+ },
+ "Poison": {
+  "def_en": "Status - if a unit receives two instances of Poison, destroy it.",
+  "cards": 32
+ },
+ "Adrenaline": {
+  "def_en": "Trigger this ability if you have specified number or fewer cards in your hand. Cards with Adrenaline are highlighted when their effect is stronger.",
+  "cards": 31
+ },
+ "Veil": {
+  "def_en": "Status that prevents unit from gaining other statuses.",
+  "cards": 31
+ },
+ "Tribute": {
+  "def_en": "On Deploy, you may choose to spend the specified amount of Coins to trigger this ability.",
+  "cards": 31
+ },
+ "Shield": {
+  "def_en": "Status that blocks the next instance of damage dealt to a unit.",
+  "cards": 28
+ },
+ "Purify": {
+  "def_en": "Remove all statuses.",
+  "cards": 28
+ },
+ "Bonded": {
+  "def_en": "Trigger this ability if you control a copy of this card.",
+  "cards": 28
+ },
+ "Consume": {
+  "def_en": "Destroy a unit and boost self by its power. If target is in the graveyard, Banish it instead.",
+  "cards": 24
+ },
+ "Devotion": {
+  "def_en": "Trigger this ability if your starting deck has no neutral cards.",
+  "cards": 22
+ },
+ "Barricade": {
+  "def_en": "Trigger this ability if the unit has armor.",
+  "cards": 21
+ },
+ "Heal": {
+  "def_en": "If a unit's current power is lower than its base power, restore it either to base power or by the amount specified.",
+  "cards": 20
+ },
+ "Spying": {
+  "def_en": "Status with no additional effect. Can be used by other cards and abilities.",
+  "cards": 20
+ },
+ "Bounty": {
+  "def_en": "When a unit with this status is destroyed or banished, opponent gains coins equal to its base power. There can be only one unit with Bounty status on each side of the board at given time.",
+  "cards": 19
+ },
+ "Disloyal": {
+  "def_en": "This card is played on the opposite side of the battlefield, then gains Spying.",
+  "cards": 18
+ },
+ "Bloodthirst": {
+  "def_en": "Number of damaged enemy units required to trigger this ability.",
+  "cards": 17
+ },
+ "Timer": {
+  "def_en": "Before the end of your turn, lower the number by 1. When the number reaches 0, trigger the ability.",
+  "cards": 16
+ },
+ "Frost": {
+  "def_en": "At the start of the owner's turn, damage the highest power unit in this row by 2.",
+  "cards": 16
+ },
+ "Thrive": {
+  "def_en": "Boost this unit by 1 or the specified amount whenever you play a unit with higher power.",
+  "cards": 16
+ },
+ "Formation": {
+  "def_en": "If played on the melee row, gain Zeal. If played on the ranged row, boost self by 1.",
+  "cards": 15
+ },
+ "Immunity": {
+  "def_en": "Status whereby this card cannot be manually targeted.",
+  "cards": 15
+ },
+ "Rain": {
+  "def_en": "At the start of the owner's turn, damage 2 random units in this row by 1.",
+  "cards": 14
+ },
+ "Echo": {
+  "def_en": "At the beginning of the round, move this card from the graveyard to the top of its owner's deck. Give it Doomed.",
+  "cards": 14
+ },
+ "Seize": {
+  "def_en": "Move an enemy unit to the opposite row and give it Spying. If it already had Spying, remove Spying instead.",
+  "cards": 13
+ },
+ "Harmony": {
+  "def_en": "Boost self by 1 or the specified amount whenever you play a non-Neutral unit, whose primary category is unique among all of your units.",
+  "cards": 13
+ },
+ "Crew": {
+  "def_en": "Trigger this ability if this unit is between two Soldiers.",
+  "cards": 12
+ },
+ "Grace": {
+  "def_en": "The first time this unit's power is equal to or higher than the specified amount, trigger the ability. If the condition is already met when it enters the battlefield, trigger it immediately.",
+  "cards": 12
+ },
+ "Berserk": {
+  "def_en": "Trigger this ability whenever power is equal to or lower than the specified amount.",
+  "cards": 12
+ },
+ "Inspired": {
+  "def_en": "Trigger this ability if this unit's current power is higher than its base power.",
+  "cards": 11
+ },
+ "Veteran": {
+  "def_en": "At the start of the second and third round, increase the base power of this unit by 1.",
+  "cards": 11
+ },
+ "Intimidate": {
+  "def_en": "Boost self by 1 or the specified amount whenever you play a Crime card.",
+  "cards": 11
+ },
+ "Hoard": {
+  "def_en": "Trigger this ability if you possess the specified number of Coins or more.",
+  "cards": 11
+ },
+ "Storm": {
+  "def_en": "At the start of the owner's turn, damage all units on this row by 1.",
+  "cards": 10
+ },
+ "Patience": {
+  "def_en": "At the end of your turn, if Order is not used, increase the card's specified value by 1 for the rest of the game.",
+  "cards": 10
+ },
+ "Discard": {
+  "def_en": "Move a card from your hand to the graveyard. Note: Related abilities are not triggered when discarding manually.",
+  "cards": 10
+ },
+ "Exposed": {
+  "def_en": "Trigger this ability whenever the unit loses its Armor.",
+  "cards": 9
+ },
+ "Dominance": {
+  "def_en": "Trigger this ability if you control the highest unit on the battlefield.",
+  "cards": 9
+ },
+ "Flanking": {
+  "def_en": "If this unit is adjacent to only one card: on your Melee row, its end of turn ability is triggered twice; on your Ranged row, gain 1 Armor at the end of your turn.",
+  "cards": 9
+ },
+ "Ambush": {
+  "def_en": "Played face down, then flips over when the ability's condition is met.",
+  "cards": 8
+ },
+ "Spring": {
+  "def_en": "Manual activation of a face-down Trap. Spring is activated automatically on a Trap played next to an Artifact. Cards with Spring are flipped over after use.",
+  "cards": 8
+ },
+ "Assimilate": {
+  "def_en": "Boost self by 1 or the specified amount whenever you play a card that is not from your starting deck.",
+  "cards": 8
+ },
+ "Symbiosis": {
+  "def_en": "Whenever you play a Nature card, Spawn a Wandering Treant on a random allied row and set its power equal to number of Symbioses you control.",
+  "cards": 7
+ },
+ "Gang": {
+  "def_en": "Criminal organisations including Blindeyes, Crownsplitters, Cutups, Firesworn, Salamandra and Tidecloaks.",
+  "cards": 7
+ },
+ "Reveal": {
+  "def_en": "Show a card to both players, then hide it back in the hand or deck.",
+  "cards": 6
+ },
+ "Resupply": {
+  "def_en": "Whenever you play a Warfare card, reduce this card's Cooldown by 1.",
+  "cards": 6
+ },
+ "Clash": {
+  "def_en": "Units simultanously damage each other by their power.",
+  "cards": 6
+ },
+ "Sabbath": {
+  "def_en": "Trigger this ability if at least one of your rows has a total of 25 or more points.",
+  "cards": 6
+ },
+ "Initiative": {
+  "def_en": "Trigger this ability if you haven't used an Order, Fee or Spring ability this turn.",
+  "cards": 5
+ },
+ "Cataclysm": {
+  "def_en": "At the start of the owner's turn, split 3 damage randomly between units in this row.",
+  "cards": 5
+ },
+ "Conspiracy": {
+  "def_en": "Trigger this ability if target unit has Spying status.",
+  "cards": 5
+ },
+ "Might": {
+  "def_en": "Trigger this ability if you control a unit with 10 or more power on each of your rows.",
+  "cards": 5
+ },
+ "Insanity": {
+  "def_en": "If you have insufficient Coins, damage this unit by its Fee amount, ignoring its Armor, to trigger its Fee ability.\\nNote: Insanity cannot be used if it would destroy the unit and works only if damage is inflicted.",
+  "cards": 5
+ },
+ "Defender": {
+  "def_en": "Status that prevents the opponent from targeting other cards in this row.",
+  "cards": 5
+ },
+ "Lineage": {
+  "def_en": ": At the start of the game, boost self by the number of Dragons in your starting deck.",
+  "cards": 4
+ },
+ "Predator": {
+  "def_en": "This ability can only target units with power lower than own.",
+  "cards": 4
+ },
+ "Duel": {
+  "def_en": "Units take turns dealing damage equal to their power until one of them is destroyed.",
+  "cards": 4
+ },
+ "Vice": {
+  "def_en": "Trigger this ability after you spent the specified amount of Coins, then reset own counter.",
+  "cards": 3
+ },
+ "Drain": {
+  "def_en": "Damage ignoring the target's armor, then boost self by the damage dealt.",
+  "cards": 2
+ },
+ "Fog": {
+  "def_en": "At the start of the owner's turn, damage the lowest power unit in this row by 2.",
+  "cards": 2
+ },
+ "Blood Moon": {
+  "def_en": "At the start of the owner's turn, give a random unit in this row Bleeding (2). If the unit is already Bleeding, damage it by 2 instead.",
+  "cards": 2
+ },
+ "Rupture": {
+  "def_en": "At the end of owner's turn, damage this unit equal to its base power, then remove this status.",
+  "cards": 2
+ },
+ "Dragon's Dream": {
+  "def_en": "At the start of the owner's turn, when timer expires, damage all units in this row by 3.",
+  "cards": 1
+ }
+}
