@@ -4,6 +4,7 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import type { AnyCard } from '../types'
 import { artSources, lqipUrl, type Q } from '../lib/art'
+import { useT } from '../i18n/useT'
 
 export { artUrl } from '../lib/art'
 
@@ -24,7 +25,7 @@ function Lq({ c, pos }: { c: AnyCard; pos: string }) {
 /** card art (.gc-art) — playgwent / gwent.one, then the "(ไม่มีรูป)" text · modal (q=medium) shows the preview uncropped */
 /** pri = first row on screen: load now with fetchpriority="high" instead of lazy */
 export function CardArt({ c, children, q = 'low', pri }: { c: AnyCard; children?: ReactNode; q?: Q; pri?: boolean }) {
-  const { s, ld, onLoad, next } = useArt(c, q)
+  const { s, ld, onLoad, next } = useArt(c, q); const T = useT()
   const pos = q === 'medium' ? 'center' : 'center 22%'; const fade = !!c.lq
   const crop = s?.frame && q === 'low' ? 'pgl' : ''
   return (
@@ -32,7 +33,7 @@ export function CardArt({ c, children, q = 'low', pri }: { c: AnyCard; children?
       {s && <Lq c={c} pos={pos} />}
       {s && <img key={s.url} className={[crop, fade ? 'fade' : '', fade && ld ? 'ld' : ''].filter(Boolean).join(' ') || undefined} loading={q === 'low' && !pri ? 'lazy' : undefined} fetchPriority={pri ? 'high' : undefined} decoding="async"
         src={s.url} alt={c.n} data-pi={c.pi || ''} onLoad={onLoad} onError={next} />}
-      <div className="alt">{c.n}<br />(ไม่มีรูป)</div>
+      <div className="alt">{c.n}<br />{T.card.noImg}</div>
       {children}
     </div>
   )

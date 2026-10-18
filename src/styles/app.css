@@ -715,3 +715,75 @@ img.fade.fade { transition: opacity .35s ease, transform .4s var(--ease) }
 img.fade.fade:not(.ld) { opacity: 0 }
 /* leader ability preview = card back with a border: crop the border off in small views (modal shows it whole) */
 img.pgl { object-view-box: inset(5% 6%) }
+
+/* ── logo (src/components/Logo.tsx) ── */
+.logo { display: block; flex: none; object-fit: contain; user-select: none }
+.brand .logo-side { width: 56px; height: 56px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .6)) }
+.brand .logo-shield { display: none; width: 40px; height: 40px }
+.app.collapsed .brand .logo-side { display: none }
+.app.collapsed .brand .logo-shield { display: block }
+.m-head .logo-shield { width: 32px; height: 32px }
+
+/* ── home header: logo + site name + tagline (cards home) ── */
+.site-head { display: flex; align-items: center; justify-content: center; gap: var(--sp-5); text-align: left }
+.site-head .logo-hero { width: 148px; height: 148px; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)) }
+.site-title { margin: 0; font: 900 var(--fs-3xl, 34px)/1.1 var(--font-display); letter-spacing: .06em; color: var(--gold-hi); text-shadow: 0 1px 0 #000, 0 0 18px rgba(242, 215, 140, .25) }
+.site-tag { margin: 8px 0 0; font-size: var(--fs-md, 16px); color: var(--parchment) }
+.site-tag2 { margin: 4px 0 0; font-size: var(--fs-xs); color: var(--ink-mut) }
+
+/* ── sidebar: deck picker + "what's new" dot ── */
+.side-decksel { display: block; margin-bottom: var(--sp-2) }
+.side-decksel .select { width: 100%; min-width: 0; font-size: var(--fs-xs) }
+.newsdot { width: 8px; height: 8px; border-radius: 50%; background: #e2513b; box-shadow: 0 0 0 2px var(--side-bg), 0 0 8px #e2513b; margin-left: 6px; flex: none }
+.app.collapsed .nav .newsdot { position: absolute; top: 8px; right: 14px }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+
+/* ── deck builder: deck bar + dialogs ── */
+.deckbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3) }
+.deckbar .deck-sel { min-width: 260px; max-width: 420px }
+.deckbar-btns { display: flex; flex-wrap: wrap; gap: 6px }
+.deckbar-btns .btn { height: 32px; padding: 0 10px; font-size: var(--fs-xs) }
+.deck-more { display: none }
+.dlg .dlg-field { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-xs); color: var(--ink-mut) }
+.dlg .dlg-field input, .dlg .share-link { width: 100%; box-sizing: border-box; font-size: 14px }
+.dlg-btns { display: flex; justify-content: flex-end; gap: var(--sp-2); margin-top: var(--sp-3) }
+.dlg-btns .about-close { margin-top: 0 }
+.about-close.primary { background: var(--gold); color: var(--ink-on-gold); border-color: var(--gold) }
+.about-close:disabled { opacity: .5; cursor: default }
+.link-pv { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: var(--sp-3) 0 }
+.link-pv dt { color: var(--ink-mut) } .link-pv dd { margin: 0; color: var(--gold-hi); font-weight: 600 }
+
+/* ── guide page ── */
+.guide-body { max-width: 900px; padding: var(--sp-5) var(--sp-8) var(--sp-8); line-height: 1.7 }
+.gtoc { padding: var(--sp-4); border: 1px solid var(--gold-line); border-radius: 10px; background: rgba(0, 0, 0, .2); margin-bottom: var(--sp-5) }
+.gtoc ol { margin: var(--sp-2) 0 0; padding-left: 22px; columns: 2 }
+.gtoc a, .gsec a { color: var(--gold-hi) }
+.gsec { scroll-margin-top: 16px; margin-bottom: var(--sp-6) }
+.gsec h2 { margin: 0 0 var(--sp-2); font: 700 var(--fs-xl, 22px)/1.3 var(--font-display); color: var(--gold-hi); border-bottom: 1px solid var(--gold-line); padding-bottom: 6px }
+.gsec p { margin: 0 0 var(--sp-2); color: var(--ink) }
+.gsec kbd, .gkeys kbd { font: 600 12px/1 var(--font-num); padding: 3px 6px; border: 1px solid var(--gold-line); border-radius: 4px; background: rgba(0, 0, 0, .35); color: var(--gold-hi); white-space: nowrap }
+.gkeys { border-collapse: collapse; width: 100% }
+.gkeys th, .gkeys td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--gold-line); vertical-align: top }
+.gkeys th { color: var(--ink-mut); font-weight: 500; font-size: var(--fs-xs) }
+.news-item { padding: var(--sp-3) 0; border-bottom: 1px dashed var(--gold-line) }
+.news-item h3 { margin: 0 0 4px; font-size: 15px; color: var(--parchment) }
+.news-item ul { margin: 0; padding-left: 20px }
+
+@media (max-width: 760px) {
+  .site-head { flex-direction: column; text-align: center; gap: var(--sp-2) }
+  .site-head .logo-hero { width: 96px; height: 96px }
+  .site-title { font-size: 24px }
+  .site-tag { font-size: 14px }
+  .s-guide .page-title { display: block; font-size: var(--fs-xl); white-space: normal }
+  .guide-body { padding: 12px 14px 24px }
+  .gtoc ol { columns: 1 }
+  .deckbar .deck-sel { flex: 1 1 0; max-width: none; min-width: 0 }
+  .deck-more { display: inline-flex; height: 40px }
+  .deckbar-btns { display: none; flex: 1 1 100% }
+  .deckbar-btns.open { display: flex }
+  .deckbar-btns .btn { flex: 1 1 calc(50% - 6px) }
+  .bottomnav .newsdot { position: absolute; top: 6px; right: calc(50% - 16px); margin: 0 }
+  .bottomnav button { font-size: 10px }
+}
+.s-guide .topbar { position: static }
+@media (max-width: 760px) { .home-hero .site-head { order: -2 } }

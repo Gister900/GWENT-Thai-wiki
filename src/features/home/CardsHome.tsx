@@ -2,7 +2,8 @@
 // Typing replaces the home with results grouped by faction; clearing the box brings the home back.
 import { useMemo } from 'react'
 import type { Card } from '../../types'
-import { FAC, FAC_DESC, FAC_ORDER } from '../../lib/constants'
+import { FAC, FAC_ORDER } from '../../lib/constants'
+import { useT } from '../../i18n/useT'
 import { ARCH, BYID, CARDS, FO, SKEY, getCard, hasTip } from '../../lib/data'
 import { sorter } from '../../lib/search'
 import { ownN } from '../../lib/collection'
@@ -13,6 +14,7 @@ import { VGrid } from '../../components/VGrid'
 import { useActions, useAppState } from '../../store'
 import { CardTile } from '../cards/CardTile'
 import { useSearch } from './useSearch'
+import { Logo } from '../../components/Logo'
 
 const facIdx = (c: { id: number }) => FO.get(c.id)!
 const byFac = sorter('fac', facIdx)
@@ -33,16 +35,16 @@ function useTile() {
 }
 
 function Row({ id, icon, title, cards, total, empty, more, pri = false }: { id: string; icon: string; title: string; cards: Card[]; total: number; empty: string; more: () => void; pri?: boolean }) {
-  const tile = useTile(); const ids = useMemo(() => cards.map(c => c.id), [cards])
+  const tile = useTile(); const ids = useMemo(() => cards.map(c => c.id), [cards]); const T = useT()
   return <section className="hrow-sec" id={id}>
     <div className="hrow-hd"><h2><span aria-hidden="true">{icon}</span> {title}<span className="n">{total}</span></h2>
-      {total > 0 && <button type="button" className="more" data-more={id} onClick={more}>ดูทั้งหมด →</button>}</div>
+      {total > 0 && <button type="button" className="more" data-more={id} onClick={more}>{T.home.more}</button>}</div>
     {cards.length ? <div className="hrow">{cards.map((c, i) => <div className="hcell" key={c.id}>{tile(c, ids, pri && i < ROW_PRI)}</div>)}</div> : <div className="hrow-empty">{empty}</div>}
   </section>
 }
 
 export function CardsHome() {
-  const { recent, stars } = useAppState(); const a = useActions(); const tile = useTile()
+  const { recent, stars, lang } = useAppState(); const a = useActions(); const tile = useTile(); const T = useT(); const H = T.home
   const { text, q, onText } = useSearch()
   const res = useMemo(() => (q ? CARDS.filter(c => SKEY.get(c.id)!.includes(q)).sort(byFac) : []), [q])
   const resIds = useMemo(() => res.map(c => c.id), [res])
@@ -55,39 +57,40 @@ export function CardsHome() {
   return (
     <section id="home" className="page s-home">
       <div className="home-hero">
-        <h1 className="page-title">การ์ด<small>ค้นหาการ์ด เลือกฝ่าย หรือหาไอเดียจัดเดค · ข้อความไทยแปลโดย AI</small></h1>
+        <div className="site-head" id="siteHead"><Logo kind="hero" />
+          <div className="site-head-txt"><h1 className="site-title">GWENT-Thai-wiki</h1><p className="site-tag">{H.tagline}</p><p className="site-tag2">{H.tagline2}</p></div></div>
         <label className="search hsearch"><span className="ic" aria-hidden="true">⌕</span>
-          <input type="search" id="hq" aria-label="ค้นหาการ์ด" placeholder="ค้นหาชื่อการ์ด ความสามารถ หรือแท็ก (ไทย/อังกฤษ) เช่น Geralt, Bleeding, ทำดาเมจ" value={text} onChange={e => onText(e.target.value)} /><kbd>/</kbd></label>
+          <input type="search" id="hq" aria-label={H.searchAria} placeholder={H.searchPh} value={text} onChange={e => onText(e.target.value)} /><kbd>/</kbd></label>
       </div>
       {q ? <div className="home-body" id="hres">
-        <div className="hres-hd"><b>พบ <span id="hresN">{res.length}</span> ใบ</b><span className="lbl">สำหรับ “{text.trim()}” · แยกตามฝ่าย</span>
-          <button type="button" className="btn" id="hqClear" onClick={() => onText('')}>✕ ล้างคำค้น</button></div>
+        <div className="hres-hd"><b>{H.found} <span id="hresN">{res.length}</span> {H.foundN}</b><span className="lbl">{H.forQ(text.trim())}</span>
+          <button type="button" className="btn" id="hqClear" onClick={() => onText('')}>{H.clearQ}</button></div>
         {groups.map(([f, cs], gi) => <div className={`rgroup fc-${FAC[f].cls}`} data-fac={f} key={f}>
-          <h3><FI f={f} /> {FAC[f].th}<span className="n">{cs.length} ใบ</span></h3>
+          <h3><FI f={f} /> {FAC[f].th}<span className="n">{T.n(cs.length)}</span></h3>
           {cs.length > VIRT_MIN ? <VGrid items={cs} render={(c, row) => tile(c, resIds, gi === 0 && row === 0)} />
             : <div className="grid">{cs.map((c, i) => tile(c, resIds, gi === 0 && i < 6))}</div>}
         </div>)}
-        {!res.length && <div className="empty">ไม่พบการ์ดที่ตรงกับ “{text.trim()}” ลองคำอื่น หรือ <button type="button" className="linkbtn" onClick={() => a.showCards({ v: 'all' })}>ดูการ์ดทั้งหมดพร้อมตัวกรอง</button></div>}
+        {!res.length && <div className="empty">{H.none(text.trim())} <button type="button" className="linkbtn" onClick={() => a.showCards({ v: 'all' })}>{H.noneLink}</button></div>}
       </div> : <div className="home-body">
         <div className="ftiles" id="ftiles">
           {FAC_ORDER.map(f => { const h = HERO[f]; return <button type="button" key={f} className={`ftile fc-${FAC[f].cls}`} data-fac={f} onClick={() => a.showCards({ v: 'fac', f })}>
             {h && <HeroArt c={h} />}
-            <span className="ft-txt"><span className="ft-name"><FI f={f} />{FAC[f].th}</span><span className="ft-desc">{FAC_DESC[f][0]}</span></span>
-            <span className="ft-n"><b>{FAC_N[f]}</b> ใบ</span>
+            <span className="ft-txt"><span className="ft-name"><FI f={f} />{FAC[f].th}</span><span className="ft-desc">{T.fac.desc[f][0]}</span></span>
+            <span className="ft-n"><b>{FAC_N[f]}</b> {H.foundN}</span>
           </button> })}
         </div>
-        <button type="button" className="all-door" id="homeAll" onClick={() => a.showCards({ v: 'all' })}>☰ ดูการ์ดทั้งหมด ({CARDS.length.toLocaleString('en-US')}) พร้อมตัวกรอง<span aria-hidden="true">→</span></button>
-        <Row id="rowRecent" pri={firstRow === 'rowRecent'} icon="🕘" title="ดูล่าสุด" cards={recentCards} total={recentCards.length} more={() => a.showCards({ v: 'all' }, 'recent')}
-          empty="ยังไม่ได้เปิดดูการ์ดใบไหน ลองค้นหาหรือกดไทล์ฝ่ายด้านบน การ์ดที่เปิดดูจะมารออยู่ตรงนี้" />
-        <Row id="rowStars" pri={firstRow === 'rowStars'} icon="⭐" title="ปักดาว" cards={starCards.slice(0, ROW_MAX)} total={starCards.length} more={() => a.showTab('stars')}
-          empty="ยังไม่มีการ์ดปักดาว กด ☆ บนการ์ดใบที่ชอบ แล้วจะเรียกดูได้จากตรงนี้" />
-        <Row id="rowTips" pri={firstRow === 'rowTips'} icon="💡" title="การ์ดที่มีทริก" cards={TIPS.slice(0, ROW_MAX)} total={TIPS.length} more={() => a.showCards({ v: 'all' }, 'tip')}
-          empty="ยังไม่มีการ์ดที่มีทริก" />
+        <button type="button" className="all-door" id="homeAll" onClick={() => a.showCards({ v: 'all' })}>{H.allDoor(CARDS.length.toLocaleString('en-US'))}<span aria-hidden="true">→</span></button>
+        <Row id="rowRecent" pri={firstRow === 'rowRecent'} icon="🕘" title={H.recent} cards={recentCards} total={recentCards.length} more={() => a.showCards({ v: 'all' }, 'recent')}
+          empty={H.recentEmpty} />
+        <Row id="rowStars" pri={firstRow === 'rowStars'} icon="⭐" title={H.stars} cards={starCards.slice(0, ROW_MAX)} total={starCards.length} more={() => a.showTab('stars')}
+          empty={H.starsEmpty} />
+        <Row id="rowTips" pri={firstRow === 'rowTips'} icon="💡" title={H.tips} cards={TIPS.slice(0, ROW_MAX)} total={TIPS.length} more={() => a.showCards({ v: 'all' }, 'tip')}
+          empty={H.tipsEmpty} />
         {ARCHS.length > 0 && <section className="hrow-sec" id="homeArch">
-          <div className="hrow-hd"><h2><span aria-hidden="true">🧩</span> แนวเดค<span className="n">{ARCHS.length}</span></h2></div>
+          <div className="hrow-hd"><h2><span aria-hidden="true">🧩</span> {H.arch}<span className="n">{ARCHS.length}</span></h2></div>
           <div className="archgrid">{ARCHS.map(({ f, i, x, key }) => <button type="button" key={f + i} className={`archcard fc-${FAC[f].cls}`} data-fac={f} onClick={() => a.showCards({ v: 'fac', f, to: 'arch' })}>
             {key ? <Thumb c={getCard(key)!} lazy /> : <i className="noth">🧩</i>}
-            <span><b>{x.name_th || x.name}</b><small><FI f={f} /> {FAC[f].th}{x.name_th ? ' · ' + x.name : ''}</small></span>
+            <span><b>{lang === 'th' ? x.name_th || x.name : x.name}</b><small><FI f={f} /> {FAC[f].th}{lang === 'th' && x.name_th ? ' · ' + x.name : ''}</small></span>
           </button>)}</div>
         </section>}
       </div>}

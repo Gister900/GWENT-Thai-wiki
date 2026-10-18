@@ -8,29 +8,17 @@ import { ownN } from '../../lib/collection'
 import { Thumb } from '../../components/images'
 import { FI } from '../../components/FactionIcon'
 import { useActions, useAppState, type Tab } from '../../store'
+import { useT } from '../../i18n/useT'
+import { UI } from '../../i18n/ui'
+import { Logo } from '../../components/Logo'
+import { DeckSelect } from '../deck/DeckShare'
 
-const NAV: [Tab, string, string, string][] = [
-  // [page, icon, label, short label for the mobile bar]
-  ['cards', '🗂', 'การ์ด', 'การ์ด'],
-  ['deck', '🛠', 'จัดเดค', 'จัดเดค'],
-  ['coll', '📦', 'คอลเลกชัน', 'คอลเลกชัน'],
-  ['stars', '⭐', 'ปักดาว', 'ปักดาว'],
-  ['ov', '🧭', 'ฝ่าย & แนวเดค', 'ฝ่าย'],
-]
+/** [page, icon] · label and short label for the mobile bar come from the dictionary (nav) */
+const NAV: [Tab, string][] = [['cards', '🗂'], ['deck', '🛠'], ['coll', '📦'], ['stars', '⭐'], ['ov', '🧭'], ['guide', '📖']]
 
-/** sidebar tooltips (desktop only — the sidebar is hidden on the phone): [title, one-line description] per language */
-const TIPS: Record<string, Record<Lang, [string, string]>> = {
-  cards: { th: ['การ์ด', 'ค้นหาการ์ด เลือกดูตามฝ่าย หรือเปิดดูทั้งหมดพร้อมตัวกรอง'], en: ['Cards', 'Search cards, browse by faction, or open the full list with filters'] },
-  deck: { th: ['จัดเดค', 'เลือกฝ่าย leader แล้วใส่การ์ด พร้อมคำแนะนำและแผนคราฟต์'], en: ['Deck builder', 'Pick a faction and leader, add cards, get suggestions and a craft plan'] },
-  coll: { th: ['คอลเลกชัน', 'ติ๊กการ์ดที่มีแล้ว ดูว่ายังขาดใบไหน นำเข้า/ส่งออกเป็นไฟล์'], en: ['Collection', 'Mark the cards you own, see what is missing, import/export a file'] },
-  stars: { th: ['ปักดาว', 'การ์ดที่ปักดาวเก็บไว้ดูทีหลัง'], en: ['Starred', 'Cards you starred to come back to later'] },
-  ov: { th: ['ฝ่าย & แนวเดค', 'กติกาหลัก จุดเด่นของแต่ละฝ่าย และสไตล์เดคพร้อมการ์ดหลัก'], en: ['Factions & decks', 'Core rules, what each faction does, deck styles with key cards'] },
-  deckstat: { th: ['เดคปัจจุบัน', 'จำนวนการ์ดและ provision ของเดค กดเพื่อไปหน้าจัดเดค'], en: ['Current deck', 'Card count and provision of your deck · click to open the deck builder'] },
-  scraps: { th: ['Scraps ที่มี', 'ใส่จำนวน scraps ที่มี ใช้คำนวณแผนคราฟต์'], en: ['Your scraps', 'How many scraps you have · used by the craft plan'] },
-  lang: { th: ['ภาษา', 'สลับข้อความการ์ดเป็นภาษาไทยหรืออังกฤษ'], en: ['Language', 'Show card text in Thai or English'] },
-  collapse: { th: ['พับแถบข้าง', 'เหลือแต่ไอคอน ให้พื้นที่การ์ดกว้างขึ้น'], en: ['Collapse sidebar', 'Icons only, more room for the cards'] },
-  expand: { th: ['ขยายแถบข้าง', 'แสดงชื่อเมนูและสถานะเดคเต็ม'], en: ['Expand sidebar', 'Show menu names and the full deck status'] },
-}
+/** menu click: the guide opens at "What's new" while there is something unseen */
+const go = (a: ReturnType<typeof useActions>, k: Tab, news: boolean) => (k === 'guide' ? a.showGuide(news ? 'whatsnew' : undefined) : a.showTab(k))
+
 const TIP_DELAY = 300
 
 /** themed tooltip to the right of the sidebar: hover (after 300 ms, gone at once on leave) or keyboard focus */
@@ -58,8 +46,9 @@ function useSideTip() {
 }
 
 function SideTip({ tip, lang }: { tip: { k: string; top: number; left: number } | null; lang: Lang }) {
-  if (!tip || !TIPS[tip.k]) return null
-  const [t, d] = TIPS[tip.k][lang]
+  const tips = UI[lang].side.tips
+  if (!tip || !tips[tip.k]) return null
+  const [t, d] = tips[tip.k]
   return createPortal(<div className="stip" id="sideTip" role="tooltip" style={{ top: tip.top, left: tip.left }}><b>{t}</b><span>{d}</span></div>, document.body)
 }
 
@@ -71,9 +60,9 @@ function useCounts() {
 }
 
 export function LangSwitch() {
-  const { lang } = useAppState(); const a = useActions()
-  return <div className="seg lang" role="group" aria-label="ภาษาข้อความการ์ด" data-tip="lang">
-    {(['th', 'en'] as Lang[]).map(l => <button key={l} type="button" data-lang={l} aria-pressed={lang === l} className={lang === l ? 'on' : ''} onClick={() => a.setLang(l)}>{l === 'th' ? 'ไทย' : 'EN'}</button>)}
+  const { lang } = useAppState(); const a = useActions(); const T = useT().side
+  return <div className="seg lang" role="group" aria-label={T.langGroup} data-tip="lang">
+    {(['th', 'en'] as Lang[]).map(l => <button key={l} type="button" data-lang={l} aria-pressed={lang === l} className={lang === l ? 'on' : ''} onClick={() => a.setLang(l)}>{l === 'th' ? T.langTh : T.langEn}</button>)}
   </div>
 }
 
@@ -84,37 +73,39 @@ function Meter({ lbl, v, max, cls }: { lbl: string; v: number; max: number; cls?
 
 /** left sidebar: 5 pages + deck status + scraps + language · collapses to icons */
 export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
-  const { tab, deck, scraps, lang } = useAppState(); const a = useActions()
+  const { tab, deck, scraps, lang, newsDot } = useAppState(); const a = useActions()
   const { T, owned, stars } = useCounts()
-  const { tip, handlers } = useSideTip()
+  const { tip, handlers } = useSideTip(); const L = useT()
   const n: Partial<Record<Tab, string>> = { cards: META.count.toLocaleString('en-US'), deck: deck.f ? `${T.n}/${DECK_MIN}` : '', coll: String(owned), stars: String(stars) }
   return (
-    <aside className="side" aria-label="เมนูหลัก" {...handlers}>
+    <aside className="side" aria-label={L.side.mainMenu} {...handlers}>
       <SideTip tip={tip} lang={lang} />
       <div className="brand">
-        <div className="crest" aria-hidden="true">G</div>
-        <div className="brand-txt" title={`GWENT-Thai-wiki · แพตช์ ${META.ver}`}><b>GWENT</b><small>Thai wiki · คลังการ์ดภาษาไทย</small></div>
+        <Logo kind="side" /><Logo kind="shield" />
+        <div className="brand-txt" title={L.side.brandTitle(META.ver)}><b>GWENT</b><small>{L.side.brandSub}</small></div>
       </div>
       <nav className="nav">
-        {NAV.map(([k, ic, t]) => <button key={k} type="button" data-tab={k} className={tab === k ? 'on' : ''} aria-current={tab === k ? 'page' : undefined} aria-label={t} data-tip={k} onClick={() => a.showTab(k)}>
+        {NAV.map(([k, ic]) => { const t = L.nav[k][0]; return <button key={k} type="button" data-tab={k} className={tab === k ? 'on' : ''} aria-current={tab === k ? 'page' : undefined} aria-label={t} data-tip={k} onClick={() => go(a, k, newsDot)}>
           <span className="ic" aria-hidden="true">{ic}</span><span className="t">{t}</span>{n[k] ? <span className="n">{n[k]}</span> : null}
-        </button>)}
+          {k === 'guide' && newsDot ? <span className="newsdot" id="newsDot" title={L.side.news}><span className="sr">{L.side.news}</span></span> : null}
+        </button> })}
       </nav>
       <div className="side-spacer" />
       <div className="deckstat" id="deckStat">
-        <button type="button" className="hd" aria-label="ไปหน้าจัดเดค" data-tip="deckstat" onClick={() => a.showTab('deck')}>
+        <label className="side-decksel" data-tip="deckSel"><DeckSelect id="sideDeckSel" /></label>
+        <button type="button" className="hd" aria-label={L.side.toDeck} data-tip="deckstat" onClick={() => a.showTab('deck')}>
           {T.L ? <Thumb c={T.L} /> : <i className="noth">🃏</i>}
-          <div><b>{T.L ? T.L.n : deck.f ? 'ยังไม่เลือก leader' : 'ยังไม่ได้จัดเดค'}</b>
-            <small>{deck.f ? <><FI f={deck.f} /> {FAC[deck.f].th} · เดคปัจจุบัน</> : 'กดเพื่อเริ่มจัดเดค'}</small></div>
+          <div><b>{T.L ? T.L.n : deck.f ? L.side.noLeader : L.side.noDeck}</b>
+            <small>{deck.f ? <><FI f={deck.f} /> {FAC[deck.f].th} · {L.side.curDeck}</> : L.side.startDeck}</small></div>
         </button>
-        <Meter lbl="การ์ด" v={T.n} max={DECK_MIN} cls="cards" />
+        <Meter lbl={L.side.cards} v={T.n} max={DECK_MIN} cls="cards" />
         <Meter lbl="Provision" v={T.pv} max={T.cap} />
-        <label className="scraps" data-tip="scraps">⚒ Scraps ที่มี
+        <label className="scraps" data-tip="scraps">{L.side.scraps}
           <input type="number" id="sideScr" min="0" step="1" inputMode="numeric" placeholder="0" value={scraps} onChange={e => a.setScraps(e.target.value)} /></label>
       </div>
       <div className="side-foot">
         <LangSwitch />
-        <button type="button" className="collapse-btn" id="collapse" aria-pressed={collapsed} aria-label={collapsed ? 'ขยายแถบข้าง' : 'พับแถบข้าง'} data-tip={collapsed ? 'expand' : 'collapse'} onClick={onToggle}>«</button>
+        <button type="button" className="collapse-btn" id="collapse" aria-pressed={collapsed} aria-label={collapsed ? L.side.expand : L.side.collapse} data-tip={collapsed ? 'expand' : 'collapse'} onClick={onToggle}>«</button>
       </div>
     </aside>
   )
@@ -122,16 +113,17 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
 
 /** phone header (sidebar is hidden ≤760px) */
 export function MobileHead() {
-  return <div className="m-head"><div className="crest" aria-hidden="true">G</div><b>GWENT</b><LangSwitch /></div>
+  return <div className="m-head"><Logo kind="shield" /><b>GWENT</b><LangSwitch /></div>
 }
 
 /** phone bottom tab bar — the deck badge replaces the old floating deck button */
 export function BottomNav() {
-  const { tab, deck } = useAppState(); const a = useActions()
-  const { T } = useCounts()
-  return <nav className="bottomnav" aria-label="เมนูหลัก (มือถือ)">
-    {NAV.map(([k, ic, , s]) => <button key={k} type="button" data-tab={k} className={tab === k ? 'on' : ''} aria-current={tab === k ? 'page' : undefined} onClick={() => a.showTab(k)}>
+  const { tab, deck, newsDot } = useAppState(); const a = useActions()
+  const { T } = useCounts(); const L = useT()
+  return <nav className="bottomnav" aria-label={L.side.mobileMenu}>
+    {NAV.map(([k, ic]) => { const s = L.nav[k][1]; return <button key={k} type="button" data-tab={k} className={tab === k ? 'on' : ''} aria-current={tab === k ? 'page' : undefined} onClick={() => go(a, k, newsDot)}>
       <span className="ic" aria-hidden="true">{ic}</span>{s}{k === 'deck' && deck.f ? <span className="bdg">{T.n}</span> : null}
-    </button>)}
+      {k === 'guide' && newsDot ? <span className="newsdot" title={L.side.news}><span className="sr">{L.side.news}</span></span> : null}
+    </button> })}
   </nav>
 }

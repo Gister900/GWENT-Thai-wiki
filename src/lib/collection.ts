@@ -1,4 +1,5 @@
-import type { Card, Own } from '../types'
+import type { Card, Lang, Own } from '../types'
+import { ui } from '../i18n/ui'
 
 /** copies you can own/use: Bronze 2 · otherwise 1 */
 export const maxCopiesC = (c: Pick<Card, 'c'>) => (c.c === 'Bronze' ? 2 : 1)
@@ -8,6 +9,25 @@ export const ownN = (own: Own, id: number, byId: Record<number, Card>) => Math.m
 
 export function setOwn(own: Own, id: number, n: number): Own {
   const o = { ...own }; if (n > 0) o[id] = n; else delete o[id]; return o
+}
+
+/**
+ * one change of the collection, replayed on the latest stored collection until it is saved:
+ * set = these cards get these copies (0 = remove) · all = replace the whole collection (import)
+ */
+export type OwnOp = { t: 'set'; ch: Record<string, number> } | { t: 'all'; own: Own }
+export function applyOwnOp(own: Own, op: OwnOp): Own {
+  if (op.t === 'all') return { ...op.own }
+  const o = { ...own }
+  for (const k in op.ch) { const n = op.ch[k]; if (n > 0) o[k] = n; else delete o[k] }
+  return o
+}
+
+/** one star change: on = starred */
+export type StarOp = { id: number; on: boolean }
+export function applyStarOp(s: Set<number>, op: StarOp): Set<number> {
+  if (s.has(op.id) === op.on) return s
+  const r = new Set(s); if (op.on) r.add(op.id); else r.delete(op.id); return r
 }
 
 /** next value when the "มี n/m" button is pressed: 0 → 1 → … → max → 0 */
@@ -22,11 +42,11 @@ export function ownOk(f: OwnFilter, c: Card, n: number): boolean {
   return f === 'full' ? n >= m : f === 'miss' ? n < m : n === 0
 }
 
-export function ownSummaryText(cards: Card[], own: Own, byId: Record<number, Card>): string {
+export function ownSummaryText(cards: Card[], own: Own, byId: Record<number, Card>, lang: Lang = 'th'): string {
   const cs = cards.filter(c => c.t !== 'Ability')
   const full = cs.filter(c => ownN(own, c.id, byId) >= maxCopiesC(c)).length
   const some = cs.filter(c => ownN(own, c.id, byId) > 0).length
-  return `มีครบ ${full} ใบ · มีอย่างน้อย 1 ก๊อป ${some} ใบ จาก ${cs.length} ใบ`
+  return ui(lang).coll.sum(full, some, cs.length)
 }
 
 export const exportPayload = (own: Own, now: Date) => ({ type: 'gwent-collection', version: 1, exported: now.toISOString(), own })

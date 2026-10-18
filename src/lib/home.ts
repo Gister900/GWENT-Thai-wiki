@@ -10,7 +10,8 @@ export function heroCard(cards: Card[], f: string): Card | undefined {
 }
 
 export type SecKey = 'leader' | 'gold' | 'bronze' | 'other'
-export const SEC_LBL: Record<SecKey, string> = { leader: 'Leader', gold: 'Gold', bronze: 'Bronze', other: 'การ์ดพิเศษ / Artifact / Stratagem' }
+/** section label; other = Special/Artifact/Stratagem (text from the UI dictionary) */
+export const secLbl = (k: SecKey, other: string) => (k === 'leader' ? 'Leader' : k === 'gold' ? 'Gold' : k === 'bronze' ? 'Bronze' : other)
 /** Leader = leader abilities · Gold / Bronze = units · other = Special, Artifact, Stratagem of both tiers */
 export const secOf = (c: Card): SecKey => (c.c === 'Leader' ? 'leader' : c.t !== 'Unit' ? 'other' : c.c === 'Gold' ? 'gold' : 'bronze')
 

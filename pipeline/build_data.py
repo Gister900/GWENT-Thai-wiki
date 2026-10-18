@@ -73,6 +73,24 @@ kw = {k: {'en': v.get('def_en', ''), 'th': (kwth.get(k) or {}).get('def_th', '')
 arch = opt('archetypes.json')
 ctips = opt('cards.json')
 
+# English tips (AI translation of the Thai tips · same order) -> tipsEn / summary_en / tips_en · counts must match the Thai
+kwen = opt('keywords-en.json') or {}
+for k, v in kw.items():
+    if v['tips']:
+        e = kwen.get(k); assert e and len(e) == len(v['tips']), ('keywords-en.json', k)
+        v['tipsEn'] = e
+archen = opt('archetypes-en.json') or {}
+for f, lst in (arch or {}).items():
+    for i, x in enumerate(lst):
+        e = (archen.get(f) or [None] * (i + 1))[i]
+        assert e and e['name'] == x['name'] and len(e['tips']) == len(x.get('tips') or []), ('archetypes-en.json', f, i)
+        x['summary_en'] = e['summary']; x['tips_en'] = e['tips']
+cen = opt('cards-en.json') or {}
+for k, v in (ctips or {}).items():
+    e = cen.get(k); assert e and len(e) == len(v.get('tips') or []), ('cards-en.json', k)
+    v['tipsEn'] = e
+print('en tips: kw', sum(1 for v in kw.values() if 'tipsEn' in v), 'arch', sum(len(l) for l in (arch or {}).values()), 'ctips', len(ctips or {}))
+
 sys.path.insert(0, HERE)
 import pairs
 PR, PLBL, LPR, PMETA = pairs.compute(out, set(kw), arch, tok)

@@ -2,6 +2,7 @@
 // through the document-level click handler in App.
 import { useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 import { KW } from '../lib/data'
+import { useLang } from '../store'
 
 let state: { kw: string; rect: DOMRect } | null = null
 const subs = new Set<() => void>()
@@ -16,7 +17,7 @@ export const isPopOpen = () => !!state
 
 export function KeywordPopover() {
   const s = useSyncExternalStore(f => { subs.add(f); return () => subs.delete(f) }, () => state)
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null); const lang = useLang()
   useLayoutEffect(() => {
     const pop = ref.current; if (!pop || !s) return
     const r = s.rect, pw = pop.offsetWidth, ph = pop.offsetHeight
@@ -27,7 +28,7 @@ export function KeywordPopover() {
   const d = s && KW[s.kw]
   return (
     <div className={'pop' + (s ? '' : ' hidden')} id="pop" role="dialog" ref={ref}>
-      {s && d && <><b>{s.kw}</b>{d.th ? <p>{d.th}</p> : null}<p style={{ color: 'var(--ink-mut)' }}>{d.th ? 'EN: ' : ''}{d.en}</p></>}
+      {s && d && (lang === 'en' ? <><b>{s.kw}</b><p>{d.en}</p></> : <><b>{s.kw}</b>{d.th ? <p>{d.th}</p> : null}<p style={{ color: 'var(--ink-mut)' }}>{d.th ? 'EN: ' : ''}{d.en}</p></>)}
     </div>
   )
 }

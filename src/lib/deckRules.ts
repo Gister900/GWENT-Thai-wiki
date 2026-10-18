@@ -1,5 +1,6 @@
-import type { Card, Deck } from '../types'
+import type { Card, Deck, Lang } from '../types'
 import { FAC } from './constants'
+import { ui } from '../i18n/ui'
 
 export const DECK_MIN = 25
 export const UNIT_MIN = 13
@@ -27,30 +28,32 @@ export function deckTot(deck: Deck, byId: Record<number, Card>): DeckTotals {
 }
 
 export interface Block { s: string; l: string }
-/** why this card can't be added now (null = can add) · s = short badge text, l = full sentence for toast */
-export function blockWhy(c: Card, deck: Deck, byId: Record<number, Card>): Block | null {
-  if (!deck.f) return { s: 'ยังไม่เลือกฝ่าย', l: 'ยังไม่ได้เลือกฝ่ายของเดค ไปเลือกที่แท็บ "จัดเดค" ก่อน' }
-  if (c.f !== deck.f && c.f !== 'Neutral') return { s: 'คนละฝ่าย', l: `${c.n} เป็นการ์ด ${FAC[c.f].th} ใส่ในเดค ${FAC[deck.f].th} ไม่ได้ (ได้แค่ฝ่ายเดียวกันกับ Neutral)` }
+/** why this card can't be added now (null = can add) · s = short badge text, l = full sentence for toast (in lang) */
+export function blockWhy(c: Card, deck: Deck, byId: Record<number, Card>, lang: Lang = 'th'): Block | null {
+  const t = ui(lang).rules
+  if (!deck.f) return { s: t.noFacS, l: t.noFacL }
+  if (c.f !== deck.f && c.f !== 'Neutral') return { s: t.wrongFacS, l: t.wrongFacL(c.n, FAC[c.f].th, FAC[deck.f].th) }
   const n = deck.c[c.id] || 0, m = maxCopies(c)
-  if (n >= m) return { s: `ใส่ครบ ${m} ใบแล้ว`, l: `${c.c} ใส่ได้ใบละ ${m} ใบ และในเดคมีครบ ${n} ใบแล้ว` }
+  if (n >= m) return { s: t.fullS(m), l: t.fullL(c.c, m, n) }
   const T = deckTot(deck, byId)
-  if (T.L && T.pv + c.v > T.cap) return { s: `provision เกิน (เหลือ ${Math.max(0, T.cap - T.pv)})`, l: `provision จะเป็น ${T.pv + c.v} เกินเพดาน ${T.cap} (เหลือที่ว่าง ${Math.max(0, T.cap - T.pv)} แต่ใบนี้ใช้ ${c.v})` }
+  if (T.L && T.pv + c.v > T.cap) { const left = Math.max(0, T.cap - T.pv); return { s: t.overS(left), l: t.overL(T.pv + c.v, T.cap, left, c.v) } }
   return null
 }
 
 export interface AddResult { ok: boolean; deck: Deck; msg: string; added: boolean }
 /** try to add one copy (or set leader for a leader ability); returns the new deck + toast message */
-export function addToDeck(deck: Deck, id: number, byId: Record<number, Card>): AddResult | null {
+export function addToDeck(deck: Deck, id: number, byId: Record<number, Card>, lang: Lang = 'th'): AddResult | null {
   const c = byId[id]; if (!c) return null
-  if (!deck.f) return { ok: false, deck, added: false, msg: '⛔ ยังไม่ได้เลือกฝ่ายของเดค ไปเลือกที่แท็บ "จัดเดค" ก่อน' }
+  const t = ui(lang).rules
+  if (!deck.f) return { ok: false, deck, added: false, msg: t.noFacToast }
   if (c.t === 'Ability') {
-    if (c.f !== deck.f) return { ok: false, deck, added: false, msg: `⛔ ${c.n} เป็น leader ของ ${FAC[c.f].th} ใช้กับเดค ${FAC[deck.f].th} ไม่ได้` }
-    return { ok: true, deck: { ...deck, L: id }, added: false, msg: `✓ ตั้ง ${c.n} เป็น leader แล้ว` }
+    if (c.f !== deck.f) return { ok: false, deck, added: false, msg: t.wrongLeader(c.n, FAC[c.f].th, FAC[deck.f].th) }
+    return { ok: true, deck: { ...deck, L: id }, added: false, msg: t.setLeader(c.n) }
   }
-  const why = blockWhy(c, deck, byId)
-  if (why) return { ok: false, deck, added: false, msg: `⛔ เพิ่ม ${c.n} ไม่ได้ · ${why.l}` }
+  const why = blockWhy(c, deck, byId, lang)
+  if (why) return { ok: false, deck, added: false, msg: t.cant(c.n, why.l) }
   const next: Deck = { ...deck, c: { ...deck.c, [id]: (deck.c[id] || 0) + 1 } }
-  return { ok: true, deck: next, added: true, msg: `✓ เพิ่ม ${c.n} แล้ว · ${deckTot(next, byId).n}/${DECK_MIN} ใบ` }
+  return { ok: true, deck: next, added: true, msg: t.added(c.n, deckTot(next, byId).n, DECK_MIN) }
 }
 
 /** remove one copy (no-op when not in deck) */
@@ -61,6 +64,7 @@ export function removeFromDeck(deck: Deck, id: number): Deck {
 }
 
 /** deck checklist: [passed, label] */
-export function deckChecks(deck: Deck, t: DeckTotals): [boolean, string][] {
-  return [[!!deck.f, 'เลือกฝ่ายแล้ว'], [!!t.L, 'เลือก leader ability แล้ว'], [t.n >= DECK_MIN, `การ์ดอย่างน้อย ${DECK_MIN} ใบ (มี ${t.n})`], [t.u >= UNIT_MIN, `ยูนิตอย่างน้อย ${UNIT_MIN} ใบ (มี ${t.u})`], [t.pv <= t.cap, `provision ไม่เกินเพดาน (${t.pv} / ${t.cap})`]]
+export function deckChecks(deck: Deck, t: DeckTotals, lang: Lang = 'th'): [boolean, string][] {
+  const r = ui(lang).rules
+  return [[!!deck.f, r.chkFac], [!!t.L, r.chkLeader], [t.n >= DECK_MIN, r.chkCards(DECK_MIN, t.n)], [t.u >= UNIT_MIN, r.chkUnits(UNIT_MIN, t.u)], [t.pv <= t.cap, r.chkProv(t.pv, t.cap)]]
 }

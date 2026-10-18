@@ -34,7 +34,7 @@ export async function toAll(p: Page) { await p.click('#homeAll'); await p.waitFo
 
 export const mobile = (p: Page) => p.viewportSize()!.width <= 760
 /** go to a page with the sidebar (desktop) or the bottom bar (phone) */
-export async function nav(p: Page, t: 'cards' | 'deck' | 'coll' | 'stars' | 'ov') { await p.click(`${mobile(p) ? '.bottomnav' : '.side'} [data-tab=${t}]`); await p.waitForTimeout(250) }
+export async function nav(p: Page, t: 'cards' | 'deck' | 'coll' | 'stars' | 'ov' | 'guide') { await p.click(`${mobile(p) ? '.bottomnav' : '.side'} [data-tab=${t}]`); await p.waitForTimeout(250) }
 /** sidebar "การ์ด" (opens the home) → all-cards grid */
 export async function navAll(p: Page) { await nav(p, 'cards'); await toAll(p); await p.waitForTimeout(150) }
 /** filter panel: docked on desktop (open by default), bottom sheet on the phone */

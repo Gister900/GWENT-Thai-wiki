@@ -23,8 +23,8 @@ function watch(p: Page) {
   p.on('request', r => { const u = r.url(); if (/playgwent\.com|gwent\.one/.test(u)) remote.push(u) })
   return { errs, bad, remote }
 }
-/** every <img> on screen that has loaded: its url (all must be under BASE/art/l/) */
-const imgs = (p: Page) => p.evaluate(() => [...document.querySelectorAll('img')].filter(i => i.complete && i.naturalWidth > 0 && !i.src.startsWith('data:')).map(i => i.src))
+/** every card <img> on screen that has loaded (the site logo is not card art): its url (all must be under BASE/art/l/) */
+const imgs = (p: Page) => p.evaluate(() => [...document.querySelectorAll<HTMLImageElement>('img:not(.logo)')].filter(i => i.complete && i.naturalWidth > 0 && !i.src.startsWith('data:')).map(i => i.src))
 const own = (u: string, origin: string) => u.startsWith(origin + BASE + 'art/l/') && u.endsWith('.webp')
 
 test('web build: home, all cards and the modal load images from the site itself', async ({ browser, baseURL }) => {
@@ -78,3 +78,24 @@ test('web build: a self-hosted image that fails falls back to gwent.one', async 
   await ctx.close()
 })
 
+
+test('web build: a deck link under the base path opens the import dialog and imports the deck', async ({ browser, baseURL }) => {
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+  const p = await ctx.newPage(); const w = watch(p)
+  // Monster deck: leader 131101 (Carapace) + Ge'els + Fiend ×2 (same cards as the e2e seed)
+  await p.goto(baseURL!); await p.waitForSelector('#home .ftile')
+  await p.evaluate(() => { localStorage.setItem('gwent-deck', '{"f":"Monster","L":131101,"c":{"112405":2,"131102":1}}'); localStorage.removeItem('gwent-decks') })
+  await p.reload(); await p.waitForSelector('#home .ftile')
+  await p.click('.side [data-tab=deck]'); await p.click('#deckShare')
+  const link = await p.inputValue('#shareLink')
+  expect(link.startsWith(baseURL! + '#deck=')).toBe(true)
+  const ctx2 = await browser.newContext({ viewport: { width: 1440, height: 900 } }); const q = await ctx2.newPage(); const w2 = watch(q)
+  await q.goto(link); await expect(q.locator('#linkDlg')).toBeVisible()
+  await expect(q.locator('#linkPv [data-pv=cards]')).toContainText('3')
+  await q.click('#linkYes')
+  expect(new URL(q.url()).pathname).toBe(BASE); expect(q.url()).not.toContain('#deck=')
+  const d = await q.evaluate(() => { const l = JSON.parse(localStorage.getItem('gwent-decks')!); return l.find((x: { id: string }) => x.id === localStorage.getItem('gwent-deck-active')) })
+  expect(d).toMatchObject({ f: 'Monster', L: 131101, c: { 112405: 2, 131102: 1 } })
+  expect(w.errs).toEqual([]); expect(w2.errs).toEqual([]); expect(w.bad).toEqual([]); expect(w2.bad).toEqual([])
+  await ctx.close(); await ctx2.close()
+})

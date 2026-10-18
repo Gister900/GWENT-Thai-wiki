@@ -1,10 +1,11 @@
 // One faction: banner + play style, jump bar, collapsible sections (Leader · Gold · Bronze · special · deck styles), faction search.
 import { useEffect, useMemo, useState } from 'react'
-import { FAC, FAC_DESC } from '../../lib/constants'
+import { FAC } from '../../lib/constants'
+import { useT } from '../../i18n/useT'
 import { ARCH, BYID, CARDS, FO, SKEY } from '../../lib/data'
 import { sorter } from '../../lib/search'
 import { ownN } from '../../lib/collection'
-import { heroCard, SEC_LBL, splitSections, type SecKey } from '../../lib/home'
+import { heroCard, secLbl, splitSections, type SecKey } from '../../lib/home'
 import { HeroArt } from '../../components/images'
 import { FI } from '../../components/FactionIcon'
 import { VGrid } from '../../components/VGrid'
@@ -20,7 +21,7 @@ const SECS: SecKey[] = ['leader', 'gold', 'bronze', 'other']
 const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ block: 'start' })
 
 export function FactionPage({ f, to }: { f: string; to?: 'arch' }) {
-  const { lang, own, stars } = useAppState(); const a = useActions()
+  const { lang, own, stars } = useAppState(); const a = useActions(); const T = useT(); const F = T.facPage
   const { text, q, onText } = useSearch()
   const [closed, setClosed] = useState<Set<string>>(() => new Set())
   const all = useMemo(() => CARDS.filter(c => c.f === f).sort(sorter('fac', facIdx)), [f])
@@ -47,32 +48,32 @@ export function FactionPage({ f, to }: { f: string; to?: 'arch' }) {
       <div className="topbar">
         <Crumbs here={<><FI f={f} /> {FAC[f].th}</>} />
         <div className="tb-row">
-          <h1 className="page-title">{FAC[f].th}<small>{all.length} ใบ · ข้อความไทยแปลโดย AI</small></h1>
+          <h1 className="page-title">{FAC[f].th}<small>{F.sub(all.length)}</small></h1>
           <label className="search"><span className="ic" aria-hidden="true">⌕</span>
-            <input type="search" id="fq" aria-label={`ค้นหาในฝ่าย ${FAC[f].th}`} placeholder={`ค้นหาในฝ่าย ${FAC[f].th}`} value={text} onChange={e => onText(e.target.value)} /><kbd>/</kbd></label>
-          <div className="tb-right"><button type="button" className="btn" id="facBack" onClick={() => a.showCards({ v: 'home' })}>← หน้าแรกการ์ด</button></div>
+            <input type="search" id="fq" aria-label={F.search(FAC[f].th)} placeholder={F.search(FAC[f].th)} value={text} onChange={e => onText(e.target.value)} /><kbd>/</kbd></label>
+          <div className="tb-right"><button type="button" className="btn" id="facBack" onClick={() => a.showCards({ v: 'home' })}>{F.back}</button></div>
         </div>
         <div className="fjump" id="fjump">
-          {shown.map(k => <button type="button" key={k} data-jump={k} onClick={() => go(k)}>{SEC_LBL[k]}<span className="n">{secs[k].length}</span></button>)}
-          {arch.length > 0 && <button type="button" data-jump="arch" onClick={() => go('arch')}>🧩 สไตล์เดค<span className="n">{arch.length}</span></button>}
-          {q && <span className="count">พบ {list.length} / {all.length} ใบ</span>}
+          {shown.map(k => <button type="button" key={k} data-jump={k} onClick={() => go(k)}>{secLbl(k, T.secOther)}<span className="n">{secs[k].length}</span></button>)}
+          {arch.length > 0 && <button type="button" data-jump="arch" onClick={() => go('arch')}>{F.styles}<span className="n">{arch.length}</span></button>}
+          {q && <span className="count">{F.found(list.length, all.length)}</span>}
         </div>
       </div>
       <div className="fac-body">
         <div className="fbanner">
           {hero && <HeroArt key={hero.id} c={hero} />}
-          <div className="fb-txt"><h2><FI f={f} /> {FAC[f].th}<span className="n">{all.length} ใบ</span></h2>
-            <p><b>{FAC_DESC[f][0]}</b></p><p dangerouslySetInnerHTML={{ __html: FAC_DESC[f][1] }} /></div>
+          <div className="fb-txt"><h2><FI f={f} /> {FAC[f].th}<span className="n">{T.n(all.length)}</span></h2>
+            <p><b>{T.fac.desc[f][0]}</b></p><p dangerouslySetInnerHTML={{ __html: T.fac.desc[f][1] }} /></div>
         </div>
         {shown.map(k => <section className="fsect" id={'fx-' + k} data-sec={k} key={k}>
-          {hd(k, SEC_LBL[k], secs[k].length)}
+          {hd(k, secLbl(k, T.secOther), secs[k].length)}
           {!closed.has(k) && (secs[k].length > VIRT_MIN
             ? <VGrid items={secs[k]} render={(c, row) => tile(c, k === firstSec && row === 0)} />
             : <div className="grid">{secs[k].map((c, i) => tile(c, k === firstSec && i < 8))}</div>)}
         </section>)}
-        {!list.length && <div className="empty">ไม่พบการ์ดในฝ่ายนี้ที่ตรงกับ “{text.trim()}”</div>}
+        {!list.length && <div className="empty">{F.none(text.trim())}</div>}
         {arch.length > 0 && <section className="fsect" id="fx-arch" data-sec="arch">
-          {hd('arch', '🧩 สไตล์เดคของฝ่าย', arch.length)}
+          {hd('arch', F.stylesOf, arch.length)}
           {!closed.has('arch') && <div className="panel fx-archs"><ArchList arr={arch} /></div>}
         </section>}
       </div>

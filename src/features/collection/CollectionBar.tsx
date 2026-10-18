@@ -1,19 +1,22 @@
 import { useRef } from 'react'
 import type { Own } from '../../types'
 import { BYID, CARDS } from '../../lib/data'
-import { exportPayload, maxCopiesC, ownSummaryText, parseImport, setOwn } from '../../lib/collection'
+import { exportPayload, maxCopiesC, ownSummaryText, parseImport } from '../../lib/collection'
 import { toast } from '../../components/Toast'
-import { useActions } from '../../store'
+import { useActions, useLang } from '../../store'
+import { UI } from '../../i18n/ui'
 
 /** bulk set / export / import of the collection (gwent-own) + summary line · top of the collection page, or inside the filter panel */
 export function CollectionTools({ own }: { own: Own }) {
-  const a = useActions(); const file = useRef<HTMLInputElement>(null)
+  const a = useActions(); const file = useRef<HTMLInputElement>(null); const lang = useLang(); const C = UI[lang].coll
   const bulk = (full: boolean) => {
     const ids = a.getCurList().filter(id => BYID[id].t !== 'Ability')
-    if (!ids.length) { toast('ไม่มีการ์ดในรายการที่กรองอยู่'); return }
-    if (!confirm(`ตั้งการ์ด ${ids.length} ใบที่กรองอยู่ตอนนี้ให้เป็น "${full ? 'มีครบ' : 'ไม่มี'}" ทั้งหมด ตกลงไหม`)) return
-    let o = own; ids.forEach(id => { o = setOwn(o, id, full ? maxCopiesC(BYID[id]) : 0) }); a.setOwnAll(o)
-    toast(`✓ ตั้ง ${ids.length} ใบเป็น ${full ? 'มีครบ' : 'ไม่มี'} แล้ว`)
+    if (!ids.length) { toast(C.noCards); return }
+    const s = full ? C.full : C.none
+    if (!confirm(C.bulkQ(ids.length, s))) return
+    // only the filtered cards change; cards ticked meanwhile in another tab keep their value
+    const ch: Record<number, number> = {}; ids.forEach(id => { ch[id] = full ? maxCopiesC(BYID[id]) : 0 }); a.setOwnCards(ch)
+    toast(C.bulkDone(ids.length, s))
   }
   const exp = () => {
     const now = new Date(); const el = document.createElement('a')
@@ -27,19 +30,19 @@ export function CollectionTools({ own }: { own: Own }) {
     r.onload = () => {
       try {
         const clean = parseImport(String(r.result), BYID)
-        if (!confirm(`นำเข้าคอลเลกชัน ${Object.keys(clean).length} ใบ (จะแทนที่ข้อมูลเดิมในเครื่องนี้) ตกลงไหม`)) return
-        a.setOwnAll(clean); toast('✓ นำเข้าคอลเลกชันแล้ว')
-      } catch { toast('⛔ ไฟล์นี้ไม่ใช่ไฟล์คอลเลกชันที่ export จากหน้านี้') }
+        if (!confirm(C.impQ(Object.keys(clean).length))) return
+        a.replaceOwn(clean); toast(C.impDone)
+      } catch { toast(C.impBad) }
       input.value = ''
     }
     r.readAsText(f)
   }
   return (
     <div className="ctools">
-      <div className="ctools-sum" id="ownSum">{ownSummaryText(CARDS, own, BYID)}</div>
+      <div className="ctools-sum" id="ownSum">{ownSummaryText(CARDS, own, BYID, lang)}</div>
       <div className="ctools-btns">
-        <button type="button" className="btn" id="bulkFull" onClick={() => bulk(true)}>ตั้งทุกใบที่กรองอยู่เป็น มีครบ</button>
-        <button type="button" className="btn" id="bulkNone" onClick={() => bulk(false)}>ตั้งทุกใบที่กรองอยู่เป็น ไม่มี</button>
+        <button type="button" className="btn" id="bulkFull" onClick={() => bulk(true)}>{C.bulkFull}</button>
+        <button type="button" className="btn" id="bulkNone" onClick={() => bulk(false)}>{C.bulkNone}</button>
         <button type="button" className="btn" id="ownExp" onClick={exp}>⬇ Export (JSON)</button>
         <button type="button" className="btn" id="ownImpB" onClick={() => file.current?.click()}>⬆ Import</button>
         <input type="file" id="ownImp" accept=".json,application/json" hidden ref={file} onChange={imp} />

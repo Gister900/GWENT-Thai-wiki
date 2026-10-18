@@ -30,13 +30,15 @@ export interface Token {
 
 export type AnyCard = Card | Token
 
-export interface Keyword { en: string; th: string; tips: string[] }
+export interface Keyword { en: string; th: string; tips: string[]; tipsEn?: string[] }
 export interface Archetype {
   name: string; name_th?: string; summary_th?: string; keywords?: string[]
   key_cards?: (number | string)[]; tips?: string[]; sources?: string[]
+  /** English summary / tips (AI translation, data/tips/archetypes-en.json) */
+  summary_en?: string; tips_en?: string[]
 }
 export type Archetypes = Record<string, Archetype[]> | null
-export type CardTips = Record<string, { tips?: string[]; sources?: string[] }> | null
+export type CardTips = Record<string, { tips?: string[]; tipsEn?: string[]; sources?: string[] }> | null
 
 /** localStorage "gwent-deck" — shape must stay {f, L, c} */
 export interface Deck { f: string; L: number | null; c: Record<string, number> }

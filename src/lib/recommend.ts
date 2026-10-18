@@ -9,7 +9,8 @@
 //
 // pairScore is symmetric: the pipeline keeps only the top 8 pairs per card, so a pair can be listed under
 // A only, under X only, or under both — we take the larger of the two scores (never add them twice).
-import type { Archetype, Archetypes, Card, Deck, PairReason } from '../types'
+import type { Archetype, Archetypes, Card, Deck, Lang, PairReason } from '../types'
+import { ui } from '../i18n/ui'
 import { blockWhy, deckTot, DECK_MIN, UNIT_MIN } from './deckRules'
 
 // ---------- weights (all deterministic constants) ----------
@@ -175,12 +176,12 @@ export function recommend(deck: Deck, byId: Record<number, Card>, cards: Card[],
 }
 
 /** short label for why a pair works, e.g. "Bleeding", "Ogroid", "เอ่ยชื่อ" */
-export function reasonLabel(r: PairReason | null, plbl: Record<string, string>): string {
+export function reasonLabel(r: PairReason | null, plbl: Record<string, string>, lang: Lang = 'th'): string {
   if (!r) return ''
-  const [k, x] = r
-  if (k === 'm') return plbl[x] || x
+  const [k, x] = r; const t = ui(lang).pair
+  if (k === 'm') return t.lbl[x] || plbl[x] || x
   if (k === 't' || k === 'tr' || k === 'h') return x
-  if (k === 'n') return 'เอ่ยชื่อ'
-  if (k === 'a') return 'เดคแนว ' + x
+  if (k === 'n') return t.k.n
+  if (k === 'a') return t.archLbl(x)
   return k
 }

@@ -13,6 +13,9 @@ function injectVersion(localArt: boolean): Plugin {
     transformIndexHtml(html) {
       const meta = JSON.parse(readFileSync(new URL('./src/data/meta.json', import.meta.url), 'utf8'))
       html = html.replaceAll('__VER__', meta.ver)
+      // favicons (plain shield, no text) as small data URIs → the same in build:single (no files next to it) and build:web
+      const uri = (f: string) => 'data:image/png;base64,' + readFileSync(new URL('./src/assets/' + f, import.meta.url)).toString('base64')
+      html = html.replace('<!-- icons -->', `<link rel="icon" type="image/png" sizes="32x32" href="${uri('favicon-32.png')}">\n<link rel="icon" type="image/png" sizes="48x48" href="${uri('favicon-48.png')}">\n<link rel="apple-touch-icon" sizes="180x180" href="${uri('apple-touch-180.png')}">`)
       return localArt ? html.replace(/<!-- remote-art -->[\s\S]*?<!-- \/remote-art -->\n?/, '') : html
     },
   }
